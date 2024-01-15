@@ -55,6 +55,11 @@ kubectl create -f ./testdata/vmi.yaml
 ### KubeVirt need to implement the `status` subresource modification
 
 ``` bash
-kubectl patch vmi test-vmi-0 --subresource=status --type=merge -p '{"status":{"phase":"Running"}}'
-# Error from server (NotFound): virtualmachineinstances.kubevirt.io "test-vmi-0" not found
+kubectl get vmi test-vmi
+# NAME       AGE   PHASE       IP    NODENAME      READY
+# test-vmi   10m   Scheduled         kwok-node-0   False
+kubectl get vmi test-vmi --subresource=status
+# Error from server (NotFound): virtualmachineinstances.kubevirt.io "test-vmi" not found
+kubectl patch vmi test-vmi --subresource=status --type=merge -p '{"status":{"phase":"Running"}}'
+# Error from server (NotFound): virtualmachineinstances.kubevirt.io "test-vmi" not found
 ```
