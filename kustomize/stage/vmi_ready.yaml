@@ -8,20 +8,24 @@ spec:
     kind: VirtualMachineInstance
   selector:
     matchExpressions:
-      - key: '.metadata.deletionTimestamp'
-        operator: 'DoesNotExist'
-      - key: '.status.phase'
-        operator: 'NotIn'
-        values:
-        - 'Running'
-      - key: '.spec.nodeSelector.type'
-        operator: 'In'
-        values:
-        - 'kwok'
+    - key: '.metadata.deletionTimestamp'
+      operator: 'DoesNotExist'
+    - key: '.status.phase'
+      operator: 'NotIn'
+      values:
+      - 'Running'
+    - key: '.spec.nodeSelector.type'
+      operator: 'In'
+      values:
+      - 'kwok'
   next:
     statusTemplate: |
       {{ $now := Now }}
       phase: Running
+      conditions:
+      - type: Ready
+        status: "True"
+        lastTransitionTime: {{ $now }}
       phaseTransitionTimestamps:
       - phase: Running
         phaseTransitionTimestamp: {{ $now }}
