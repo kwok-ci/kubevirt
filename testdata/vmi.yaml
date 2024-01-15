@@ -1,0 +1,24 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  name: test-vmi
+  namespace: default
+spec:
+  domain:
+    memory:
+      guest: "50M"
+    devices:
+      disks:
+      - disk:
+          bus: virtio
+        name: containerdisk
+  volumes:
+    - containerDisk:
+        image: quay.io/kubevirt/cirros-container-disk-demo
+      name: containerdisk
+  nodeSelector:
+    type: kwok
+  tolerations:
+    - effect: NoSchedule
+      operator: "Exists"
+      key: kwok.x-k8s.io/node
