@@ -17,14 +17,13 @@ rules:
 - apiGroups:
   - kubevirt.io
   resources:
-  - virtualmachineinstances/status
-  verbs:
-  - patch
-  - update
-- apiGroups:
-  - kubevirt.io
-  resources:
   - virtualmachineinstances/finalizers
   verbs:
   - patch
   - update
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts
+  verbs:
+  - impersonate

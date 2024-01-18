@@ -44,22 +44,10 @@ kubectl create -f ./testdata/node.yaml
 
 ``` bash
 kubectl create -f ./testdata/vmi.yaml
-
-# NAME                                          AGE   PHASE       IP    NODENAME      READY
-# virtualmachineinstance.kubevirt.io/test-vmi   4s    Scheduled         kwok-node-0   False
-
-# NAME                               READY   STATUS    RESTARTS   AGE
-# pod/virt-launcher-test-vmi-8b74v   3/3     Running   0          4s
 ```
-
-### KubeVirt need to implement the `status` subresource modification
 
 ``` bash
 kubectl get vmi test-vmi
-# NAME       AGE   PHASE       IP    NODENAME      READY
-# test-vmi   10m   Scheduled         kwok-node-0   False
-kubectl get vmi test-vmi --subresource=status
-# Error from server (NotFound): virtualmachineinstances.kubevirt.io "test-vmi" not found
-kubectl patch vmi test-vmi --subresource=status --type=merge -p '{"status":{"phase":"Running"}}'
-# Error from server (NotFound): virtualmachineinstances.kubevirt.io "test-vmi" not found
+# NAME       AGE   PHASE     IP    NODENAME   READY
+# test-vmi   11m   Running                    True
 ```

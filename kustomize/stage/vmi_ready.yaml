@@ -29,3 +29,6 @@ spec:
       phaseTransitionTimestamps:
       - phase: Running
         phaseTransitionTimestamp: {{ $now }}
+    statusSubresource: ""
+    statusPatchAs:
+      username: system:serviceaccount:kubevirt:kubevirt-controller
