@@ -21,14 +21,27 @@ spec:
   next:
     statusTemplate: |
       {{ $now := Now }}
-      phase: Running
+      activePods:
+      {{ YAML .status.activePods 1 }}
       conditions:
       - type: Ready
         status: "True"
         lastTransitionTime: {{ $now }}
+      guestOSInfo: {}
+      launcherContainerImageVersion: {{ .status.launcherContainerImageVersion }}
+      memory:
+      {{ YAML .status.memory 1 }}
+      migrationTransport: Unix
+      nodeName: {{ .status.nodeName }}
+      phase: Running
       phaseTransitionTimestamps:
+      {{ YAML .status.phaseTransitionTimestamps 0 }}
       - phase: Running
         phaseTransitionTimestamp: {{ $now }}
+      qosClass: {{ .status.qosClass }}
+      runtimeUser: {{ .status.runtimeUser }}
+      volumeStatus:
+      {{ YAML .status.volumeStatus 1 }}
     statusSubresource: ""
     statusPatchAs:
       username: system:serviceaccount:kubevirt:kubevirt-controller

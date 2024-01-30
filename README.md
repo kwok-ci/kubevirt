@@ -21,8 +21,8 @@ kubectl -n kubevirt patch kubevirt kubevirt --type=merge --patch '{"spec":{"conf
 More see [docs](https://kwok.sigs.k8s.io/docs/user/kwok-in-cluster/)
 
 ``` bash
-kubectl create -f https://github.com/wzshiming/kwok/releases/download/v0.5.0-rc.1/kwok.yaml
-kubectl create -f https://github.com/wzshiming/kwok/releases/download/v0.5.0-rc.1/stage-fast.yaml
+kubectl create -f https://github.com/wzshiming/kwok/releases/download/v0.5.0-rc.3/kwok.yaml
+kubectl create -f https://github.com/wzshiming/kwok/releases/download/v0.5.0-rc.3/stage-fast.yaml
 kubectl -n kube-system patch deployment kwok-controller -p '{"spec":{"template":{"spec":{"hostNetwork":true}}}}'
 ```
 
@@ -36,8 +36,12 @@ kubectl create -k ./kustomize/kwok
 
 ``` bash
 kubectl create -f ./testdata/node.yaml
+```
+
+``` bash
+kubectl get node kwok-node-0
 # NAME          STATUS   ROLES   AGE   VERSION
-# kwok-node-0   Ready    agent   10s   kwok-v0.5.0
+# kwok-node-0   Ready    agent   10s   kwok-v0.5.0-rc.3
 ```
 
 ## Test VMI
@@ -48,6 +52,6 @@ kubectl create -f ./testdata/vmi.yaml
 
 ``` bash
 kubectl get vmi test-vmi
-# NAME       AGE   PHASE     IP    NODENAME   READY
-# test-vmi   11m   Running                    True
+# NAME       AGE   PHASE     IP    NODENAME      READY
+# test-vmi   10s   Running         kwok-node-0   True
 ```
